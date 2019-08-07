@@ -22,11 +22,13 @@ export class NavbarComponent implements OnInit {
   myColorVaraible = '';
   myColor = 'white';
   menu_bgc = '';
+  cart_count = 0;
 
   constructor() { }
 
   ngOnInit() {
-    //console.log(this.value);
+    //console.log(JSON.parse(localStorage.getItem('added_items')).length);
+    this.cart_count = JSON.parse(localStorage.getItem('added_items')).length;
   }
 
    @HostListener("window:scroll", []) 

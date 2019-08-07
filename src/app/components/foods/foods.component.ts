@@ -108,7 +108,7 @@ export class FoodsComponent implements OnInit, AfterViewInit {
    let obj = this.food_items.find(obj => obj.id = data.id);
   
       if(obj){
-        console.log(obj.id);
+        //console.log(obj.id);
        
          document.getElementById(obj.id).innerText = 'PRODUCT ADDED';
          document.getElementById(obj.id).disabled = true; 
