@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: './foods.component.html',
   styleUrls: ['./foods.component.css']
 })
-export class FoodsComponent implements OnInit {
+export class FoodsComponent implements OnInit, AfterViewInit {
 
    category: number = 1;
    food_items = []; 
@@ -63,39 +63,57 @@ export class FoodsComponent implements OnInit {
 
   ngOnInit() {
     this.food_items = this.all_product;
-    console.log(JSON.parse(localStorage.getItem('added_items')));
+    //console.log(JSON.parse(localStorage.getItem('added_items')));
+    if(JSON.parse(localStorage.getItem('added_items')) == null){
+    this.added_items = [];  
+    }else{
+       this.added_items = JSON.parse(localStorage.getItem('added_items'));
+    }
+    
     this.route.params.subscribe( params => {
       if(params.id == 2){
       this.food_items = this.mains;
-      console.log(this.added_items);
+      
       }else if(params.id == 3) {
        this.food_items = this.salads;
-       this.checkAddedItems();
+       
       }else if(params.id == 4) {
        this.food_items = this.startes;
-       this.checkAddedItems();
+       
       }
       else {
          this.food_items = this.all_product;
-         this.checkAddedItems();
+        
       }
       });
   }
 
+  ngAfterViewInit(){
+    this.checkAddedItems();
+  }
+  
+
   addtoCart(item) {
     document.getElementById(item.id).innerText = 'PRODUCT ADDED';
     document.getElementById(item.id).disabled = true;
-    this.added_items.push(item.id);
+    this.added_items.push(item);
     localStorage.setItem('added_items',JSON.stringify(this.added_items));
     
   }
 
   checkAddedItems() {
-    for(let i of this.added_items){
-      console.log(this.food_items.indexOf(i));
-     if(this.food_items.indexOf(i) !== -1){
-       console.log(i);
-     }
+    
+    for(let data of this.added_items){
+   
+   let obj = this.food_items.find(obj => obj.id = data.id);
+  
+      if(obj){
+        console.log(obj.id);
+       
+         document.getElementById(obj.id).innerText = 'PRODUCT ADDED';
+         document.getElementById(obj.id).disabled = true; 
+      }
+     
     }
   }
 
