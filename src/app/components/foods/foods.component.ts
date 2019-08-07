@@ -63,30 +63,40 @@ export class FoodsComponent implements OnInit {
 
   ngOnInit() {
     this.food_items = this.all_product;
+    console.log(JSON.parse(localStorage.getItem('added_items')));
     this.route.params.subscribe( params => {
-      console.log(params);
       if(params.id == 2){
       this.food_items = this.mains;
-      console.log(this.food_items);
+      console.log(this.added_items);
       }else if(params.id == 3) {
-this.food_items = this.salads;
+       this.food_items = this.salads;
+       this.checkAddedItems();
       }else if(params.id == 4) {
-this.food_items = this.startes;
+       this.food_items = this.startes;
+       this.checkAddedItems();
       }
       else {
          this.food_items = this.all_product;
+         this.checkAddedItems();
       }
       });
   }
 
   addtoCart(item) {
-    // console.log('added');
-    // this.added_items.push(item);
-    // localStorage.setItem('cart',JSON.stringify(this.added_items));
-    // console.log(localStorage.getItem('cart'));
-    // console.log(item.id);  
     document.getElementById(item.id).innerText = 'PRODUCT ADDED';
     document.getElementById(item.id).disabled = true;
+    this.added_items.push(item.id);
+    localStorage.setItem('added_items',JSON.stringify(this.added_items));
+    
+  }
+
+  checkAddedItems() {
+    for(let i of this.added_items){
+      console.log(this.food_items.indexOf(i));
+     if(this.food_items.indexOf(i) !== -1){
+       console.log(i);
+     }
+    }
   }
 
 }
