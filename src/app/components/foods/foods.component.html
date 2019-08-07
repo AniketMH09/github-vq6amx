@@ -8,8 +8,7 @@
         <p class="card-text">{{item.contains}}</p>
         <hr>
         <span class="price"> ₹{{item.price}}</span>
-        <button class="btn" (click)='addtoCart(item)'>ADD TO CART</button>
-        <button class="btn" >PRODUCT ADDED</button>
+        <button class="btn" id = "{{item.id}}" (click)='addtoCart(item)'>ADD TO CART</button>
       </div>
     </div>
     </a>
