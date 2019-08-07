@@ -84,7 +84,9 @@ this.food_items = this.startes;
     // this.added_items.push(item);
     // localStorage.setItem('cart',JSON.stringify(this.added_items));
     // console.log(localStorage.getItem('cart'));
-    //document.getElementById("myBtn").disabled = true;
+    // console.log(item.id);  
+    document.getElementById(item.id).innerText = 'PRODUCT ADDED';
+    document.getElementById(item.id).disabled = true;
   }
 
 }
